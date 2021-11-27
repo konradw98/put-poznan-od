@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import put.poznan.ochronadanych.controller.RegisterRequest;
 import put.poznan.ochronadanych.model.User;
+import put.poznan.ochronadanych.repository.UserRepository;
 
 import java.time.Instant;
 
@@ -15,7 +16,7 @@ public class AuthService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    
+    private UserRepository userRepository;
 
     public void signup(RegisterRequest registerRequest) {
         User user = new User();
