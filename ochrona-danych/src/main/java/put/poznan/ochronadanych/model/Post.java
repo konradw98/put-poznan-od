@@ -22,19 +22,19 @@ public class Post {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     private Long postId;
-    @NotBlank(message = "Post Name cannot be empty or Null")
+    //@NotBlank(message = "Post Name cannot be empty or Null")
     private String postName;
-    @Nullable
+    //@Nullable
     private String url;
-    @Nullable
-    @Lob
+    //@Nullable
+    //@Lob
     private String description;
     private Integer voteCount = 0;
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    //@ManyToOne(fetch = LAZY)
+    //@JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;
     private Instant createdDate;
-    @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "id", referencedColumnName = "id")
+    //@ManyToOne(fetch = LAZY)
+    //@JoinColumn(name = "id", referencedColumnName = "id")
     private Topic topic;
 }
