@@ -19,6 +19,7 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody RegisterRequest registerRequest) throws PutODException {
+        System.out.println("JESTMW W SIGNUP");
         authService.signup(registerRequest);
         return new ResponseEntity<>("UserRegostratopm Sicces", HttpStatus.OK);
 
