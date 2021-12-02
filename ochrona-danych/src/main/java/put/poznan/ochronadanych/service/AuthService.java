@@ -13,6 +13,7 @@ import put.poznan.ochronadanych.repository.VerificationTokenRepository;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -39,20 +40,35 @@ public class AuthService {
 
         userRepository.save(webUser);
 
-       String token = generateVerificationToken(webUser);
+        String token = generateVerificationToken(webUser);
         mailService.sendMail(new NotificationEmail("Please Activate your accounet", webUser.getEmail(),
                 "please click on the below url to activate your account : " +
-                "http://localhost:8080/api/auth/accountVerification/" + token));
+                        "http://localhost:8080/api/auth/accountVerification/" + token));
     }
 
-    private String generateVerificationToken(WebUser webUser){
-       String token = UUID.randomUUID().toString();
-       VerificationToken verificationToken = new VerificationToken();
-       verificationToken.setToken(token);
-       verificationToken.setWebUser(webUser);
-        System.out.println("TOKEN for activate account"+token);
-       verificationTokenRepository.save(verificationToken);
+    private String generateVerificationToken(WebUser webUser) {
+        String token = UUID.randomUUID().toString();
+        VerificationToken verificationToken = new VerificationToken();
+        verificationToken.setToken(token);
+        verificationToken.setWebUser(webUser);
+        System.out.println("TOKEN for activate account" + token);
+        verificationTokenRepository.save(verificationToken);
 
-       return token;
+        return token;
+    }
+
+    public void verifyAccount(String token) throws PutODException {
+        Optional<VerificationToken> verificationToken = verificationTokenRepository.findByToken(token);
+        verificationToken.orElseThrow(() -> new PutODException("Invalid Token"));
+        fetchUserAndEnable(verificationToken.get());
+
+    }
+
+    @Transactional
+    private void fetchUserAndEnable(VerificationToken verificationToken) throws PutODException {
+        String username = verificationToken.getWebUser().getUsername();
+        WebUser user = userRepository.findByUsername(username).orElseThrow(() -> new PutODException("User not found with username= " + username));
+        user.setEnabled(true);
+        userRepository.save(user);
     }
 }
