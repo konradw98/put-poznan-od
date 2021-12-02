@@ -21,6 +21,7 @@ class MailService {
 
     @Async
     void sendMail(NotificationEmail notificationEmail) throws PutODException {
+        System.out.println("JESTEM W send email");
         MimeMessagePreparator messagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setFrom("ochronadanychPUT@email.com");
@@ -29,9 +30,9 @@ class MailService {
             messageHelper.setText(notificationEmail.getBody());
         };
         try {
-            mailSender.send(messagePreparator);
+           mailSender.send(messagePreparator);
             log.info("Activation email sent!!");
-        } catch (MailException e) {
+        } catch (Exception e) {
             log.error("Exception occurred when sending mail", e);
             throw new PutODException("Exception occurred when sending mail to " + notificationEmail.getRecipient());
         }

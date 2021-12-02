@@ -33,16 +33,16 @@ public class AuthService {
         webUser.setUsername(registerRequest.getUsername());
         webUser.setEmail(registerRequest.getEmail());
         webUser.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-        webUser.setPassword(registerRequest.getPassword());
+        //webUser.setPassword(registerRequest.getPassword());
         webUser.setCreated(Instant.now());
         webUser.setEnabled(false);
 
         userRepository.save(webUser);
 
-       /* String token = generateVerificationToken(webUser);
+       String token = generateVerificationToken(webUser);
         mailService.sendMail(new NotificationEmail("Please Activate your accounet", webUser.getEmail(),
                 "please click on the below url to activate your account : " +
-                "http://localhost:8080/api/auth/accountVerification/" + token));*/
+                "http://localhost:8080/api/auth/accountVerification/" + token));
     }
 
     private String generateVerificationToken(WebUser webUser){
@@ -50,7 +50,7 @@ public class AuthService {
        VerificationToken verificationToken = new VerificationToken();
        verificationToken.setToken(token);
        verificationToken.setWebUser(webUser);
-
+        System.out.println("TOKEN for activate account"+token);
        verificationTokenRepository.save(verificationToken);
 
        return token;
