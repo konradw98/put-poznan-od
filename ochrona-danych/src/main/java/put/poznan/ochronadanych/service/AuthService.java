@@ -1,15 +1,22 @@
 package put.poznan.ochronadanych.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import put.poznan.ochronadanych.controller.RegisterRequest;
+import put.poznan.ochronadanych.dto.AuthenticationResponse;
+import put.poznan.ochronadanych.dto.LoginRequest;
+import put.poznan.ochronadanych.dto.RegisterRequest;
 import put.poznan.ochronadanych.exception.PutODException;
 import put.poznan.ochronadanych.model.NotificationEmail;
 import put.poznan.ochronadanych.model.WebUser;
 import put.poznan.ochronadanych.model.VerificationToken;
 import put.poznan.ochronadanych.repository.UserRepository;
 import put.poznan.ochronadanych.repository.VerificationTokenRepository;
+import put.poznan.ochronadanych.security.JwtProvider;
 
 import javax.transaction.Transactional;
 import java.time.Instant;
@@ -27,6 +34,10 @@ public class AuthService {
     private final VerificationTokenRepository verificationTokenRepository;
 
     private final MailService mailService;
+
+    private final AuthenticationManager authenticationManager;
+
+    private final JwtProvider jwtProvider;
 
     @Transactional
     public void signup(RegisterRequest registerRequest) throws PutODException {
@@ -70,5 +81,12 @@ public class AuthService {
         WebUser user = userRepository.findByUsername(username).orElseThrow(() -> new PutODException("User not found with username= " + username));
         user.setEnabled(true);
         userRepository.save(user);
+    }
+
+    public AuthenticationResponse login(LoginRequest loginRequest) throws PutODException {
+        Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authenticate);
+        String token = jwtProvider.generateToken(authenticate);
+        return new AuthenticationResponse(token, loginRequest.getUsername());
     }
 }

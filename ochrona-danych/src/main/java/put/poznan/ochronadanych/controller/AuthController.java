@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import put.poznan.ochronadanych.dto.AuthenticationResponse;
+import put.poznan.ochronadanych.dto.LoginRequest;
+import put.poznan.ochronadanych.dto.RegisterRequest;
 import put.poznan.ochronadanych.exception.PutODException;
 import put.poznan.ochronadanych.service.AuthService;
-
-import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -27,6 +28,12 @@ public class AuthController {
     public ResponseEntity<String> verifyAccount(@PathVariable String token) throws PutODException {
          authService.verifyAccount(token);
         return new ResponseEntity<>("Account Activatedsuccesy", HttpStatus.OK);
+
+    }
+
+    @PostMapping("/login")
+    public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) throws PutODException {
+       return authService.login(loginRequest);
 
     }
 }

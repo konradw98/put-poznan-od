@@ -1,4 +1,4 @@
-package put.poznan.ochronadanych.controller;
+package put.poznan.ochronadanych.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
