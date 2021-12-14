@@ -33,6 +33,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) throws PutODException {
+        System.out.println("JESTEM W LOGIN");
        return authService.login(loginRequest);
 
     }
