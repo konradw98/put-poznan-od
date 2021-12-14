@@ -2,6 +2,7 @@ package put.poznan.ochronadanych.security;
 
 
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
@@ -13,6 +14,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.security.*;
 import java.security.cert.CertificateException;
+
+//import static com.sun.org.apache.xml.internal.security.keys.keyresolver.KeyResolver.getPublicKey;
+import static io.jsonwebtoken.Jwts.parser;
 
 @Service
 public class JwtProvider {
@@ -46,4 +50,27 @@ public class JwtProvider {
             throw new PutODException("Exception occured while retrieving public key from keystore");
         }
     }
+
+    public boolean validateToken(String jwt) throws PutODException {
+        parser().setSigningKey(getPublickey()).parseClaimsJws(jwt);
+        return true;
+    }
+
+    private PublicKey getPublickey() throws PutODException {
+        try {
+            return keyStore.getCertificate("springblog").getPublicKey();
+        } catch (KeyStoreException e) {
+            throw new PutODException("Exception occured while retrieving public key from keystore");
+        }
+    }
+
+    public String getUsernameFromJWT(String token) throws PutODException {
+        Claims claims = parser()
+                .setSigningKey(getPublickey())
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.getSubject();
+    }
+
 }
