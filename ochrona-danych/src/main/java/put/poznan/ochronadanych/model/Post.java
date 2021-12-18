@@ -29,12 +29,10 @@ public class Post {
     @Nullable
     @Lob
     private String description;
-    private Integer voteCount = 0;
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private WebUser webUser;
-    private Instant createdDate;
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "id", referencedColumnName = "id")
+    @JoinColumn(name = "topicId", referencedColumnName = "id")
     private Topic topic;
 }

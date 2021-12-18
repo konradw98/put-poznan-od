@@ -12,4 +12,5 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<WebUser, Long> {
 
     Optional<WebUser> findByUsername(String username);
+
 }

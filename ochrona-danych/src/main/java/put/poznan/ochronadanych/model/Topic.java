@@ -28,7 +28,6 @@ public class Topic {
     private String description;
     @OneToMany(fetch = LAZY)
     private List<Post> posts;
-    private Instant createdDate;
     @ManyToOne(fetch = LAZY)
     private WebUser webUser;
 }
