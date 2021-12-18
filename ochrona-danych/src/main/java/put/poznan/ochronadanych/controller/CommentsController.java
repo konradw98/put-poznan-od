@@ -19,22 +19,19 @@ import static org.springframework.http.HttpStatus.OK;
 public class CommentsController {
     private final CommentService commentService;
 
-   /* @PostMapping
+    @PostMapping
     public ResponseEntity<Void> createComment(@RequestBody CommentsDto commentsDto) throws PutODException {
         commentService.save(commentsDto);
         return new ResponseEntity<>(CREATED);
-    }*/
+    }
 
-   /* @GetMapping("/byPost/{postId}")
-    public ResponseEntity<List<CommentsDto>> getAllCommentsForPost(@PathVariable Long postId) {
+   @GetMapping("/byPost/{postId}")
+    public ResponseEntity<List<CommentsDto>> getAllCommentsForPost(@PathVariable Long postId) throws PutODException {
         return ResponseEntity.status(OK)
                 .body(commentService.getAllCommentsForPost(postId));
     }
 
-    @GetMapping("/byUser/{userName}")
-    public ResponseEntity<List<CommentsDto>> getAllCommentsForUser(@PathVariable String userName){
-        return ResponseEntity.status(OK)
-                .body(commentService.getAllCommentsForUser(userName));
-    }*/
+
+
 
 }
