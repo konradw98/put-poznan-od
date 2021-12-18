@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import put.poznan.ochronadanych.dto.TopicDto;
+import put.poznan.ochronadanych.exception.PutODException;
 import put.poznan.ochronadanych.service.TopicService;
 
 import java.util.List;
@@ -26,5 +27,12 @@ public class TopicController {
     @GetMapping
     public ResponseEntity<List<TopicDto>> getAllTopic() {
       return ResponseEntity.status(HttpStatus.OK).body(topicService.getAll());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<TopicDto> getTopic(@PathVariable Long id) throws PutODException {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(topicService.getTopic(id));
     }
 }

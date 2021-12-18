@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import put.poznan.ochronadanych.dto.TopicDto;
+import put.poznan.ochronadanych.exception.PutODException;
 import put.poznan.ochronadanych.model.Topic;
 import put.poznan.ochronadanych.repository.TopicRepository;
 
@@ -19,6 +20,7 @@ public class TopicService {
 
     private final TopicRepository topicRepository;
 
+  
     @Transactional
     public TopicDto save(TopicDto topicDto) {
         Topic saveTopic = topicRepository.save(mapTopicDto(topicDto));
@@ -44,5 +46,11 @@ public class TopicService {
     public List<TopicDto> getAll() {
         return topicRepository.findAll().stream().map(this::mapToDto)
                 .collect(Collectors.toList());
+    }
+
+    public TopicDto getTopic(Long id) throws PutODException {
+        Topic Topic = topicRepository.findById(id)
+                .orElseThrow(() -> new PutODException("No Topic found with ID - " + id));
+        return mapToDto(Topic);
     }
 }
