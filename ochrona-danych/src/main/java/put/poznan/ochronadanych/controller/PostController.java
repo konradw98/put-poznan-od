@@ -13,7 +13,7 @@ import put.poznan.ochronadanych.service.PostService;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.status;
-
+//@CrossOrigin()
 @RestController
 @RequestMapping("/api/posts/")
 @AllArgsConstructor
