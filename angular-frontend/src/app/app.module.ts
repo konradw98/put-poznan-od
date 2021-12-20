@@ -17,6 +17,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PostTileComponent } from './shared/post-tile/post-tile.component';
 import { SideBarComponent } from './shared/side-bar/side-bar.component';
 import { TopicSideBarComponent } from './shared/topic-side-bar/topic-side-bar.component';
+import { CreateTopicComponent } from './topic/create-topic/create-topic.component';
+import { CreatePostComponent } from './post/create-post/create-post.component';
+import { ListTopicsComponent } from './topic/list-topics/list-topics.component';
 
 
 @NgModule({
@@ -28,7 +31,10 @@ import { TopicSideBarComponent } from './shared/topic-side-bar/topic-side-bar.co
     HomeComponent,
     PostTileComponent,
     SideBarComponent,
-    TopicSideBarComponent
+    TopicSideBarComponent,
+    CreateTopicComponent,
+    CreatePostComponent,
+    ListTopicsComponent
   ],
   imports: [
     BrowserModule,
