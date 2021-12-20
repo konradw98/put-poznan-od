@@ -16,7 +16,7 @@ export class SignupComponent implements OnInit {
   signupRequestPayload: SignupRequestPayload;
   signupForm: FormGroup;
 
-  constructor(private authService: AuthService, private router: Router,private toastr: ToastrService) {
+  constructor(private authService: AuthService, private router: Router, private toastr: ToastrService) {
     this.signupRequestPayload = {
       username: '', 
       email: '', 

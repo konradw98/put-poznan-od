@@ -13,6 +13,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { HomeComponent } from './home/home.component';
 import { TokenInterceptor } from './token-interceptor';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PostTileComponent } from './shared/post-tile/post-tile.component';
+import { SideBarComponent } from './shared/side-bar/side-bar.component';
+import { TopicSideBarComponent } from './shared/topic-side-bar/topic-side-bar.component';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +25,10 @@ import { TokenInterceptor } from './token-interceptor';
     HeaderComponent,
     SignupComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    PostTileComponent,
+    SideBarComponent,
+    TopicSideBarComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +37,8 @@ import { TokenInterceptor } from './token-interceptor';
     HttpClientModule,
     NgxWebstorageModule.forRoot(),
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(), 
+    FontAwesomeModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,
