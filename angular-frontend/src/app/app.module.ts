@@ -20,6 +20,7 @@ import { TopicSideBarComponent } from './shared/topic-side-bar/topic-side-bar.co
 import { CreateTopicComponent } from './topic/create-topic/create-topic.component';
 import { CreatePostComponent } from './post/create-post/create-post.component';
 import { ListTopicsComponent } from './topic/list-topics/list-topics.component';
+import { ViewPostComponent } from './post/view-post/view-post.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ListTopicsComponent } from './topic/list-topics/list-topics.component';
     TopicSideBarComponent,
     CreateTopicComponent,
     CreatePostComponent,
-    ListTopicsComponent
+    ListTopicsComponent,
+    ViewPostComponent
   ],
   imports: [
     BrowserModule,
