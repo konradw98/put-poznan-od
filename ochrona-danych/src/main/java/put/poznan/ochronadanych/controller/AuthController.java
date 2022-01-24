@@ -33,7 +33,7 @@ public class AuthController {
         return new ResponseEntity<>("UserRegostratopm Sicces", HttpStatus.OK);
     }
 
-    @GetMapping("accountVerification/{token}")
+    @GetMapping("/accountVerification/{token}")
     public ResponseEntity<String> verifyAccount(@PathVariable String token) throws PutODException {
          authService.verifyAccount(token);
         return new ResponseEntity<>("Account Activatedsuccesy", HttpStatus.OK);
@@ -46,7 +46,7 @@ public class AuthController {
        return authService.login(loginRequest);
     }
 
-    @PostMapping("refresh/token")
+    @PostMapping("/refresh/token")
     public AuthenticationResponse refreshToken(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) throws PutODException {
         return authService.refreshToken(refreshTokenRequest);
 
