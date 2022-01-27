@@ -26,7 +26,7 @@ public class TopicController {
 
     @GetMapping
     public ResponseEntity<List<TopicDto>> getAllTopic() {
-      return ResponseEntity.status(HttpStatus.OK).body(topicService.getAll());
+        return ResponseEntity.status(HttpStatus.OK).body(topicService.getAll());
     }
 
     @GetMapping("/{id}")

@@ -25,13 +25,11 @@ public class CommentsController {
         return new ResponseEntity<>(CREATED);
     }
 
-   @GetMapping("/byPost/{postId}")
+    @GetMapping("/byPost/{postId}")
     public ResponseEntity<List<CommentsDto>> getAllCommentsForPost(@PathVariable Long postId) throws PutODException {
         return ResponseEntity.status(OK)
                 .body(commentService.getAllCommentsForPost(postId));
     }
-
-
 
 
 }

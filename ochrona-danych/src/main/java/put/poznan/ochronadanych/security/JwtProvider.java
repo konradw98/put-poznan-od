@@ -1,7 +1,6 @@
 package put.poznan.ochronadanych.security;
 
 
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
@@ -91,5 +90,6 @@ public class JwtProvider {
     }
 
     public Long getJwtExpirationInMillis() {
-        return jwtExpirationInMillis;}
+        return jwtExpirationInMillis;
+    }
 }

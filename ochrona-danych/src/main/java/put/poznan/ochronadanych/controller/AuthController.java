@@ -28,21 +28,19 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody RegisterRequest registerRequest) throws PutODException {
-        System.out.println("JESTMW W SIGNUP");
         authService.signup(registerRequest);
-        return new ResponseEntity<>("UserRegostratopm Sicces", HttpStatus.OK);
+        return new ResponseEntity<>("User Registation Succes", HttpStatus.OK);
     }
 
     @GetMapping("/accountVerification/{token}")
     public ResponseEntity<String> verifyAccount(@PathVariable String token) throws PutODException {
          authService.verifyAccount(token);
-        return new ResponseEntity<>("Account Activatedsuccesy", HttpStatus.OK);
+        return new ResponseEntity<>("Account Activated successfully!", HttpStatus.OK);
 
     }
 
     @PostMapping("/login")
     public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) throws PutODException {
-        System.out.println("JESTEM W LOGIN");
        return authService.login(loginRequest);
     }
 

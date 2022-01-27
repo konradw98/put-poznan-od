@@ -27,7 +27,7 @@ public class PostController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-   @GetMapping
+   @GetMapping()
     public ResponseEntity<List<PostResponse>> getAllPosts() {
         return status(HttpStatus.OK).body(postService.getAllPosts());
     }
@@ -39,7 +39,6 @@ public class PostController {
 
     @GetMapping("byTopic/{id}")
     public ResponseEntity<List<PostResponse>> getPostsBySubreddit(@PathVariable Long id) throws PutODException {
-        System.out.println("ID w post controller="+id);
         return status(HttpStatus.OK).body(postService.getPostsByTopic(id));
     }
 

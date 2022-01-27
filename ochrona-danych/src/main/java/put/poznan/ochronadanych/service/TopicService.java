@@ -20,7 +20,7 @@ public class TopicService {
 
     private final TopicRepository topicRepository;
 
-  
+
     @Transactional
     public TopicDto save(TopicDto topicDto) {
         Topic saveTopic = topicRepository.save(mapTopicDto(topicDto));
@@ -29,12 +29,12 @@ public class TopicService {
     }
 
     private Topic mapTopicDto(TopicDto topicDto) {
-       return Topic.builder().name(topicDto.getName())
+        return Topic.builder().name(topicDto.getName())
                 .description(topicDto.getDescription())
                 .build();
     }
 
-    private TopicDto mapToDto(Topic topic){
+    private TopicDto mapToDto(Topic topic) {
         return TopicDto.builder().name(topic.getName())
                 .id(topic.getId())
                 .numberOfPosts(topic.getPosts().size())
@@ -42,7 +42,7 @@ public class TopicService {
 
     }
 
-    @Transactional(readOnly = true )
+    @Transactional(readOnly = true)
     public List<TopicDto> getAll() {
         return topicRepository.findAll().stream().map(this::mapToDto)
                 .collect(Collectors.toList());

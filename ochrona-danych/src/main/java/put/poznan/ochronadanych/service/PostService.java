@@ -32,15 +32,15 @@ public class PostService {
         postRepository.save(mapPostRequestToPost(postRequest));
     }
 
-   @Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     public PostResponse getPost(Long id) throws PutODException {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new PutODException("POST WITH ID NOT FOUND ID="+id));
+                .orElseThrow(() -> new PutODException("POST WITH ID NOT FOUND ID=" + id));
         return mapPostToPostResponse(post);
     }
 
     @Transactional(readOnly = true)
-    public List<PostResponse> getAllPosts(){
+    public List<PostResponse> getAllPosts() {
         return postRepository.findAll()
                 .stream()
                 .map(post -> {
@@ -54,11 +54,11 @@ public class PostService {
                 .collect(toList());
     }
 
-   @Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     public List<PostResponse> getPostsByTopic(Long topicId) throws PutODException {
-       System.out.println("id w post servie="+topicId);
+        System.out.println("id w post servie=" + topicId);
         Topic topic = topicRepository.findById(topicId)
-                .orElseThrow(() -> new PutODException("topic with id not found"+topicId.toString()));
+                .orElseThrow(() -> new PutODException("topic with id not found" + topicId.toString()));
         List<Post> posts = postRepository.findAllByTopic(topic);
         return posts.stream().map(post -> {
             try {
@@ -72,18 +72,18 @@ public class PostService {
 
 
     public Post mapPostRequestToPost(PostRequest postRequest) throws PutODException {
-        return  Post.builder()
+        return Post.builder()
                 .postName(postRequest.getPostName())
                 .postId(postRequest.getPostId())
                 .topic(topicRepository.findByName(postRequest.getTopicName())
-                        .orElseThrow(() -> new PutODException("topic name with name"+postRequest.getTopicName()+"not found")))
+                        .orElseThrow(() -> new PutODException("topic name with name" + postRequest.getTopicName() + "not found")))
                 .webUser(authService.getCurrentUser())
                 .url(postRequest.getUrl())
                 .description(postRequest.getDescription()).build();
 
     }
 
-    public PostResponse mapPostToPostResponse(Post post) throws PutODException{
+    public PostResponse mapPostToPostResponse(Post post) throws PutODException {
         return PostResponse.builder()
                 .postName(post.getPostName())
                 .id(post.getPostId())

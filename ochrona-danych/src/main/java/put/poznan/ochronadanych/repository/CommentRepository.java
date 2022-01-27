@@ -9,5 +9,6 @@ import put.poznan.ochronadanych.model.Post;
 
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
+
     List<Comment> findByPost(Post post);
 }
